@@ -35,6 +35,10 @@ const drawGrid = () => {
   ctx.stroke();
 };
 
+const getIndex = (row, column) => {
+  return row * width + column;
+};
+
 const drawCells = () => {
   const cellsPtr = universe.cells();
   const cells = new Uint8Array(memory.buffer, cellsPtr, width * height);
