@@ -4,7 +4,7 @@ use fixedbitset::FixedBitSet;
 extern crate js_sys;
 mod utils;
 
-use std::fmt;
+// use std::fmt;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
@@ -32,6 +32,16 @@ impl Universe {
     }
     pub fn cells(&self) -> *const u32 {
         self.cells.as_slice().as_ptr()
+    }
+    pub fn set_width(&mut self, width: u32) {
+        self.width = width;
+        // Cell::Dead
+        self.cells = (0..width * self.height).map(|_i| 0).collect();
+    }
+    pub fn set_height(&mut self, height: u32) {
+        self.height = height;
+        // 0 === Cell::Dead
+        self.cells = (0..self.width * height).map(|_i| 0).collect();
     }
     fn get_index(&self, row: u32, column: u32) -> usize {
         (row * self.width + column) as usize
@@ -92,20 +102,20 @@ impl Universe {
         }
     }
 
-    pub fn render(&self) -> String {
-        self.to_string()
-    }
+    // pub fn render(&self) -> String {
+    //     self.to_string()
+    // }
 }
 
-impl fmt::Display for Universe {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        for line in self.cells.as_slice().chunks(self.width as usize) {
-            for &cell in line {
-                let symbol = if cell == 0 { '◻' } else { '◼' };
-                write!(f, "{}", symbol)?;
-            }
-            write!(f, "\n")?;
-        }
-        Ok(())
-    }
-}
+// impl fmt::Display for Universe {
+//     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+//         for line in self.cells.as_slice().chunks(self.width as usize) {
+//             for &cell in line {
+//                 let symbol = if cell == 0 { '◻' } else { '◼' };
+//                 write!(f, "{}", symbol)?;
+//             }
+//             write!(f, "\n")?;
+//         }
+//         Ok(())
+//     }
+// }
