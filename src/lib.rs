@@ -119,3 +119,14 @@ impl Universe {
 //         Ok(())
 //     }
 // }
+
+impl Universe {
+    pub fn get_cells(&self) -> &FixedBitSet {
+        &self.cells
+    }
+    pub fn set_cells(&mut self, cells: &FixedBitSet) {
+        for idx in cells.ones() {
+            self.cells.set(idx, true);
+        }
+    }
+}
