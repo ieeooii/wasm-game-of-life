@@ -4,6 +4,15 @@ use fixedbitset::FixedBitSet;
 extern crate js_sys;
 mod utils;
 
+extern crate web_sys;
+
+// A macro to provide `println!(..)`-style syntax for `console.log` logging.
+macro_rules! log {
+    ( $( $t:tt )* ) => {
+        web_sys::console::log_1(&format!( $( $t )* ).into());
+    }
+}
+
 // use std::fmt;
 use wasm_bindgen::prelude::*;
 
@@ -69,6 +78,14 @@ impl Universe {
                 let cell = self.cells[idx];
                 let live_neighbors = self.live_neighbor_count(row, col);
 
+                log!(
+                    "cell[{}, {}] is initially {:?} and has {} live neighbors",
+                    row,
+                    col,
+                    cell,
+                    live_neighbors
+                );
+
                 next.set(
                     idx,
                     match (cell, live_neighbors) {
@@ -81,10 +98,12 @@ impl Universe {
                 );
             }
         }
+        log!("    it becomes {:?}", next);
         self.cells = next;
     }
 
     pub fn new() -> Universe {
+        utils::set_panic_hook();
         let width = 64;
         let height = 64;
 
