@@ -18,7 +18,6 @@ impl<'a> Timer<'a> {
 impl<'a> Drop for Timer<'a> {
     fn drop(&mut self) {
         console::time_end_with_label(self.name);
-        let _timer = Timer::new("Universe::tick");
     }
 }
 
@@ -69,7 +68,7 @@ impl Universe {
                 next[idx] = next_cell;
             }
         }
-
+        let _timer = Timer::new("Universe::tick");
         self.cells = next;
     }
 
