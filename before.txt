@@ -1,0 +1,32 @@
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 1 test
+test universe_ticks ... FAILED
+
+failures:
+
+---- universe_ticks stdout ----
+thread 'main' panicked at /Users/leewoojin/.cargo/registry/src/index.crates.io-6f17d22bba15001f/web-sys-0.3.67/src/features/gen_console.rs:6:5:
+cannot call wasm-bindgen imported functions on non-wasm targets
+stack backtrace:
+   0: std::panicking::begin_panic
+   1: web_sys::features::gen_console::console::time_end_with_label
+   2: wasm_game_of_life::Universe::tick
+   3: test::bench::ns_iter_inner
+   4: core::ops::function::FnOnce::call_once
+   5: test::run_test
+   6: test::console::run_tests_console
+   7: test::test_main
+   8: test::test_main_static
+note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+
+
+failures:
+    universe_ticks
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
