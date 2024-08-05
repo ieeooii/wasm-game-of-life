@@ -70,7 +70,6 @@ const drawCells = () => {
   }
 
   // Dead cells.
-
   ctx.fillStyle = DEAD_COLOR;
   for (let row = 0; row < height; row++) {
     for (let col = 0; col < width; col++) {
@@ -138,7 +137,9 @@ let animationId = null;
 
 const renderLoop = () => {
   fps.render();
-  universe.tick();
+  for (let i = 0; i < 9; i++) {
+    universe.tick();
+  }
 
   drawGrid();
   drawCells();
